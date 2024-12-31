@@ -34,14 +34,14 @@
         - Clean all the resources and close SDL successfully.
 - 10:18. SDL2 library instalation on my debian distribution. Check it is working with a simple print app.
 
-## TODOS
+## Todos
 - [x] Configuration of development enviroment.
     - Install SDL2 library on your project.
     - You can install the package from [SDL2 2.30.10 repository](https://github.com/libsdl-org/SDL/releases/tag/release-2.30.10)
     - Add configuration for your text editor.
     - Test your installation with a basic main.c file.
-- [ ] Create a basic windows 800x600.
-- [ ] Implemente the main game loop.
+- [x] Create a basic windows 800x600.
+- [x] Implemente the main game loop.
     - Run a game loop until the player close the game.
     - Handle player events (like close the windows)
     - Update game renderization.
