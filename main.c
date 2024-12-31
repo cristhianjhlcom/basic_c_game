@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
+#include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
 #include <stdlib.h>
@@ -43,8 +44,16 @@ int main(void) {
                 is_running = false;
             }
         }
+        // Clean screen. (black screen)
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
+
+        // Draw the red square.
+        SDL_Rect red_rect = { 100, 100, 50, 50 };
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_RenderFillRect(renderer, &red_rect);
+
+        // Show change on screen.
         SDL_RenderPresent(renderer);
     }
     SDL_DestroyRenderer(renderer);

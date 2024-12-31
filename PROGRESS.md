@@ -4,9 +4,14 @@
 
 ### 31-12-2024
 
+- 15:02. Add red square on screen.
+    - [SDL Rect Docs](https://wiki.libsdl.org/SDL2/SDL_Rect)
+    - Create the square size properties `SDL_Rect red_rect = { 100, 100, 50, 50 };`
+    - Update the square background color to red `SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);`
+    - Now the red square is renderer on the windows `SDL_RenderFillRect(renderer, &red_rect);`
 - 13:39. Add loop that check users inputs events.
     - Check is the event type is equal to `SDL_QUIT`. Then run the next code to close the app.
-    ```clang
+    ```c
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT) {
             is_running = false;
@@ -20,14 +25,14 @@
     - Create a `renderer` variable to draw the windows, also check if the renderer was created successfully.
     - Keep the windows open, I create a while loop that checks is the boolean variable `is_running` is `true`.
         - If is true, I run this code.
-        ```clang
+        ```c
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Negro
         SDL_RenderClear(renderer);
         SDL_RenderPresent(renderer);
         ```
         - This code above clean and render the background color.
         - If is false, I run this code.
-        ```clang
+        ```c
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         SDL_Quit();
@@ -49,7 +54,7 @@
     - Update game renderization.
     - Render.
     - Use a clock to keep the speed constantly.
-- [ ] Draw a square in the windows.
+- [x] Draw a square in the windows.
     - Should clean the windows before redraw the square.
 - [ ] Add movements to the square.
     - The player can move the square with arrows or WASD.
