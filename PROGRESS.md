@@ -4,6 +4,34 @@
 
 ### 31-12-2024
 
+- 13:39. Add loop that check users inputs events.
+    - Check is the event type is equal to `SDL_QUIT`. Then run the next code to close the app.
+    ```clang
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_QUIT) {
+            is_running = false;
+        }
+    }
+    ```
+- 13:31. Create my first windows using SDL_CreateWindow.
+    - Save the return function a `window` variable, set the arguments for positions and size.
+    - Check if the windows was created successfully otherwise close the app with SDL_Quit().
+    - Create a `renderer` variable to draw the windows, also check if the renderer was created successfully.
+    - Keep the windows open, I create a while loop that checks is the boolean variable `is_running` is `true`.
+        - If is true, I run this code.
+        ```clang
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Negro
+        SDL_RenderClear(renderer);
+        SDL_RenderPresent(renderer);
+        ```
+        - This code above clean and render the background color.
+        - If is false, I run this code.
+        ```clang
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        ```
+        - Clean all the resources and close SDL successfully.
 - 10:18. SDL2 library instalation on my debian distribution. Check it is working with a simple print app.
 
 ## TODOS
