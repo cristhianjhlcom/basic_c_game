@@ -13,9 +13,10 @@
         }
     }
     ```
-- 13:31. Create my first windows using SDL_CreateWindow.
+- 13:31. Create my first windows.
+    - [SDL_CreateWindow Docs](https://wiki.libsdl.org/SDL2/SDL_CreateWindow)
     - Save the return function a `window` variable, set the arguments for positions and size.
-    - Check if the windows was created successfully otherwise close the app with SDL_Quit().
+    - Check if the windows was created successfully otherwise close the app with [SDL_Quit()](https://wiki.libsdl.org/SDL2/SDL_Quit).
     - Create a `renderer` variable to draw the windows, also check if the renderer was created successfully.
     - Keep the windows open, I create a while loop that checks is the boolean variable `is_running` is `true`.
         - If is true, I run this code.
@@ -33,6 +34,7 @@
         ```
         - Clean all the resources and close SDL successfully.
 - 10:18. SDL2 library instalation on my debian distribution. Check it is working with a simple print app.
+    - [SDL2 Library Docs](https://wiki.libsdl.org/wiki/index)
 
 ## Todos
 - [x] Configuration of development enviroment.
