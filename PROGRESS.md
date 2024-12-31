@@ -4,6 +4,16 @@
 
 ### 31-12-2024
 
+- 15:30. Add movements to the square.
+    - Create variables for square position x and y.
+    - Create `speed` variables for the movement of square to 1. (5 is very fast, maybe depends on screen width?)
+    - Add conditional if to ask is `event.type` is equal to `SDL_KEYDOWN`.
+        - Use a switch case to handle Key type.
+            - `SDL_UP` decrease the y position by `speed`.
+            - `SDL_DOWN` increase the y position by `speed`.
+            - `SDL_LEFT` decrease the x position by `speed`.
+            - `SDL_RIGHT` increase the x position by `speed`.
+    - Add `WINDOW_WIDTH` and `WINDOW_HEIGHT` to make this values reusables.
 - 15:02. Add red square on screen.
     - [SDL Rect Docs](https://wiki.libsdl.org/SDL2/SDL_Rect)
     - Create the square size properties `SDL_Rect red_rect = { 100, 100, 50, 50 };`
@@ -56,7 +66,7 @@
     - Use a clock to keep the speed constantly.
 - [x] Draw a square in the windows.
     - Should clean the windows before redraw the square.
-- [ ] Add movements to the square.
+- [x] Add movements to the square.
     - The player can move the square with arrows or WASD.
 - [ ] Handle the edge of the screen.
 - [ ] Add collision detections.
