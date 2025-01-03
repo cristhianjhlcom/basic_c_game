@@ -9,6 +9,8 @@
 #include <stdbool.h>
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
+#define RED_SQUARE_WIDTH 50
+#define RED_SQUARE_HEIGHT 50
 
 int main(void) {
     // Init SDL2
@@ -74,6 +76,12 @@ int main(void) {
                         break;
                 }
             }
+
+            // Handle square go out of screen.
+            if (posX < 0) posX = 0;
+            if (posY < 0) posY = 0;
+            if (posX > (WINDOW_WIDTH - RED_SQUARE_WIDTH)) posX = WINDOW_WIDTH - RED_SQUARE_WIDTH;
+            if (posY > (WINDOW_HEIGHT - RED_SQUARE_HEIGHT)) posY = WINDOW_HEIGHT - RED_SQUARE_HEIGHT;
         }
 
         // Clean screen. (black screen)
@@ -81,7 +89,7 @@ int main(void) {
         SDL_RenderClear(renderer);
 
         // Draw the red square.
-        SDL_Rect red_rect = { posX, posY, 50, 50 };
+        SDL_Rect red_rect = { posX, posY, RED_SQUARE_WIDTH, RED_SQUARE_HEIGHT };
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         SDL_RenderFillRect(renderer, &red_rect);
 

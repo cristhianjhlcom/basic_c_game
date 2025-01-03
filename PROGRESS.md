@@ -4,6 +4,8 @@
 
 ### 03-01-2025
 
+- 15:01:34. Add validation to prevent the red square go outsite the screen.
+    - Validate with screen width and height minus square width and height.
 - 14:47:44. Move keydowns event handler inside `SDL_PollEvent(&event)` and update `speed` value to `5`.
     - Something happends after I restart my computer that everything was broken.
 - 14:46:03. Re install SDL2 library.
