@@ -21,7 +21,7 @@ int main(void) {
         "First Windows",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
-        WINDOW_HEIGHT,
+        WINDOW_WIDTH,
         WINDOW_HEIGHT,
         SDL_WINDOW_SHOWN
     );
