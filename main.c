@@ -47,7 +47,7 @@ int main(void) {
 
     // Variables for red square.
     int posX, posY = 100;
-    int speed = 5;
+    int speed = 10;
     // Conditional for run the app and event variables.
     bool is_running = true;
     SDL_Event event;

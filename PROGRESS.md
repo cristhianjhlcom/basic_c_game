@@ -4,6 +4,7 @@
 
 ### 03-01-2025
 
+- 15:04:01. Increase the `speed` movement to 10 becuase was to slow.
 - 15:02:56. Add red square width and height constant values.
 - 15:01:34. Add validation to prevent the red square go outsite the screen.
     - Validate with screen width and height minus square width and height.
