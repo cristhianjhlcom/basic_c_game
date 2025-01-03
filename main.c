@@ -45,7 +45,7 @@ int main(void) {
 
     // Variables for red square.
     int posX, posY = 100;
-    int speed = 1;
+    int speed = 5;
     // Conditional for run the app and event variables.
     bool is_running = true;
     SDL_Event event;
@@ -57,24 +57,25 @@ int main(void) {
             if (event.type == SDL_QUIT) {
                 is_running = false;
             }
-        }
-        // Handle player keydowns.
-        if (event.type == SDL_KEYDOWN) {
-            switch (event.key.keysym.sym) {
-                case SDLK_UP:
-                    posY -= speed;
-                    break;
-                case SDLK_DOWN:
-                    posY += speed;
-                    break;
-                case SDLK_LEFT:
-                    posX -= speed;
-                    break;
-                case SDLK_RIGHT:
-                    posX += speed;
-                    break;
+            // Handle player keydowns.
+            if (event.type == SDL_KEYDOWN) {
+                switch (event.key.keysym.sym) {
+                    case SDLK_UP:
+                        posY -= speed;
+                        break;
+                    case SDLK_DOWN:
+                        posY += speed;
+                        break;
+                    case SDLK_LEFT:
+                        posX -= speed;
+                        break;
+                    case SDLK_RIGHT:
+                        posX += speed;
+                        break;
+                }
             }
         }
+
         // Clean screen. (black screen)
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);

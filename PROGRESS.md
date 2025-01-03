@@ -2,6 +2,14 @@
 
 ## Progress
 
+### 03-01-2025
+
+- 14:47:44. Move keydowns event handler inside `SDL_PollEvent(&event)` and update `speed` value to `5`.
+    - Something happends after I restart my computer that everything was broken.
+- 14:46:03. Re install SDL2 library.
+    - I use this command `sudo apt update` then `sudo apt install --reinstall libsdl2-dev`
+    - Looks like the drive cannot be finded.
+
 ### 31-12-2024
 
 - 15:30. Add movements to the square.
