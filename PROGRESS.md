@@ -4,6 +4,11 @@
 
 ### 03-01-2025
 
+- 23:47:17. Create build script to compile the game.
+    ```bash
+    gcc -o output main.c -lSDL2 -lSDL2_ttf
+    ./output
+    ```
 - 23:35:16. Add feedback text on screen.
     - When main square collide with obstacle (second square) the program will show a "Game Over" text on screen, then after 3 seconds will close the app.
     - Had to install the ttf library `sudo apt install libsdl2-ttf-dev` so we can import the necesary modules.
