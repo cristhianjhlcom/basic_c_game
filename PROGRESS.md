@@ -4,6 +4,16 @@
 
 ### 03-01-2025
 
+- 21:36:42. Add collision.
+    - Create a function to check the collision between two squares.
+    ```c
+    return (a.x + a.w >= b.x) && // A's right edge >= B's left edge.
+    (a.x <= b.x + b.w) &&    // A's left edge <= B's right edge.
+    (a.y + a.h >= b.y) &&    // A's botton edge >= B's top edge.
+    (a.y <= b.y + b.h);      // A's top edge <= B's botton edge.
+    ```
+    - If the condition return `true` means that both square are collide, so the main square turn red.
+    - Otherwise, the main square keeps the main color that is green.
 - 21:20:47. Add blue square.
     - We create a blue square the same way as red square.
     ```c
@@ -88,7 +98,7 @@
 - [x] Add movements to the square.
     - The player can move the square with arrows or WASD.
 - [x] Handle the edge of the screen.
-- [ ] Add collision detections.
+- [x] Add collision detections.
     - You can draw another square blue square for example.
     - Implement a logic that handle red square and blue square collision.
     - You can use *AABB collision detection* tecnique (Axis-Aligned Bounding Box)

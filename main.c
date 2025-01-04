@@ -14,6 +14,8 @@
 #define BLUE_SQUARE_WIDTH 50
 #define BLUE_SQUARE_HEIGHT 50
 
+bool check_collision(SDL_Rect a, SDL_Rect b);
+
 int main(void) {
     // Init SDL2
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -50,7 +52,8 @@ int main(void) {
     // Variables for red square.
     int posX, posY = 100;
     // Variables for blue square.
-    int bPosX, bPosY = 400;
+    int bPosX = 400;
+    int bPosY = 300;
     int speed = 10;
     // Conditional for run the app and event variables.
     bool is_running = true;
@@ -92,15 +95,23 @@ int main(void) {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
-        // Draw the red square.
-        SDL_Rect red_rect = { posX, posY, RED_SQUARE_WIDTH, RED_SQUARE_HEIGHT };
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        SDL_RenderFillRect(renderer, &red_rect);
-
         // Draw the blue square.
         SDL_Rect blue_rect = { bPosX, bPosY, BLUE_SQUARE_WIDTH, BLUE_SQUARE_HEIGHT };
         SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
         SDL_RenderFillRect(renderer, &blue_rect);
+
+        // Draw the red square.
+        SDL_Rect red_rect = { posX, posY, RED_SQUARE_WIDTH, RED_SQUARE_HEIGHT };
+
+        if (check_collision(red_rect, blue_rect)) {
+            // Change to red of red_rect.
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        } else {
+            // Change to green of red_rect.
+            SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+        }
+        // Show on screen the red_rect.
+        SDL_RenderFillRect(renderer, &red_rect);
 
         // Show change on screen.
         SDL_RenderPresent(renderer);
@@ -109,4 +120,11 @@ int main(void) {
     SDL_DestroyWindow(window);
     SDL_Quit();
     return EXIT_SUCCESS;
+}
+
+bool check_collision(SDL_Rect a, SDL_Rect b) {
+    return (a.x + a.w >= b.x) && // A's right edge >= B's left edge.
+        (a.x <= b.x + b.w) &&    // A's left edge <= B's right edge.
+        (a.y + a.h >= b.y) &&    // A's botton edge >= B's top edge.
+        (a.y <= b.y + b.h);      // A's top edge <= B's botton edge.
 }
