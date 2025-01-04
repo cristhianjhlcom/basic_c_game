@@ -4,6 +4,13 @@
 
 ### 03-01-2025
 
+- 21:20:47. Add blue square.
+    - We create a blue square the same way as red square.
+    ```c
+    SDL_Rect blue_rect = { bPosX, bPosY, BLUE_SQUARE_WIDTH, BLUE_SQUARE_HEIGHT };
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+    SDL_RenderFillRect(renderer, &blue_rect);
+    ```
 - 15:04:01. Increase the `speed` movement to 10 becuase was to slow.
 - 15:02:56. Add red square width and height constant values.
 - 15:01:34. Add validation to prevent the red square go outsite the screen.
@@ -80,7 +87,7 @@
     - Should clean the windows before redraw the square.
 - [x] Add movements to the square.
     - The player can move the square with arrows or WASD.
-- [ ] Handle the edge of the screen.
+- [x] Handle the edge of the screen.
 - [ ] Add collision detections.
     - You can draw another square blue square for example.
     - Implement a logic that handle red square and blue square collision.

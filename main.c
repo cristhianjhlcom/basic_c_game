@@ -11,6 +11,8 @@
 #define WINDOW_HEIGHT 600
 #define RED_SQUARE_WIDTH 50
 #define RED_SQUARE_HEIGHT 50
+#define BLUE_SQUARE_WIDTH 50
+#define BLUE_SQUARE_HEIGHT 50
 
 int main(void) {
     // Init SDL2
@@ -47,6 +49,8 @@ int main(void) {
 
     // Variables for red square.
     int posX, posY = 100;
+    // Variables for blue square.
+    int bPosX, bPosY = 400;
     int speed = 10;
     // Conditional for run the app and event variables.
     bool is_running = true;
@@ -92,6 +96,11 @@ int main(void) {
         SDL_Rect red_rect = { posX, posY, RED_SQUARE_WIDTH, RED_SQUARE_HEIGHT };
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         SDL_RenderFillRect(renderer, &red_rect);
+
+        // Draw the blue square.
+        SDL_Rect blue_rect = { bPosX, bPosY, BLUE_SQUARE_WIDTH, BLUE_SQUARE_HEIGHT };
+        SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+        SDL_RenderFillRect(renderer, &blue_rect);
 
         // Show change on screen.
         SDL_RenderPresent(renderer);
