@@ -2,6 +2,34 @@
 
 ## Progress
 
+### 04/01/2025
+
+- 12:35:23. Add reset button.
+    - Create rect element to place the reset button.
+    - Create text and texture surface for the "Reset" label.
+    - Handle reset logic on click button.
+    ```c
+    posX = 100;
+    posY = 100;
+    red_rect.x = posX;
+    red_rect.y = posY;
+    show_reset_button = false;
+    ```
+    - Add `show_reset_button` flag to handle render reset button.
+    ```c
+    if (show_reset_button) {
+        // Colorize white reset button.
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_RenderFillRect(renderer, &reset_button);
+        SDL_RenderCopy(renderer, reset_text_texture, NULL, &reset_text_rect);
+    } else {
+        // Change to green of red_rect.
+        // Render on screen the red_rect.
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_RenderFillRect(renderer, &red_rect);
+    }
+    ```
+
 ### 03-01-2025
 
 - 23:47:17. Create build script to compile the game.
@@ -119,7 +147,7 @@
     - Implement a logic that handle red square and blue square collision.
     - You can use *AABB collision detection* tecnique (Axis-Aligned Bounding Box)
     - Compare the coords of both squares.
-- [ ] Add visual feedbacks.
+- [x] Add visual feedbacks.
     - Show any message on screen.
     - Add restart button or something like that.
 - [ ] Add your first basic mechanic to the game.

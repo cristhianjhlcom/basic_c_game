@@ -28,7 +28,7 @@ int main(void) {
     }
     // Create windows.
     SDL_Window *window = SDL_CreateWindow(
-        "First Windows",
+        "Square Game",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
         WINDOW_WIDTH,
@@ -67,18 +67,20 @@ int main(void) {
         return EXIT_FAILURE;
     }
     // Variables for red square.
-    int posX, posY = 100;
+    int posX = 100;
+    int posY = 100;
     // Variables for blue square.
     int bPosX = 400;
     int bPosY = 300;
     int speed = 10;
     // Conditional for run the app and event variables.
     bool is_running = true;
+    bool show_reset_button = false;
     SDL_Event event;
 
     // Create surface for text and texture.
-    SDL_Color color = { 255, 255, 255, 255 };
-    SDL_Surface *text_surface = TTF_RenderText_Solid(font, "Game Over", color);
+    SDL_Color white_color = { 255, 255, 255, 255 };
+    SDL_Surface *text_surface = TTF_RenderText_Solid(font, "Game Over", white_color);
     if (!text_surface) {
         printf("Error creating text surface %s\n", TTF_GetError());
         TTF_CloseFont(font);
@@ -88,6 +90,26 @@ int main(void) {
     SDL_Texture *text_texture = SDL_CreateTextureFromSurface(renderer, text_surface);
     SDL_FreeSurface(text_surface);
     SDL_Rect text_rect = { 300, 250, 200, 50 };
+    
+    // Draw the reset button.
+    SDL_Rect reset_button = { 350, 300, 100, 50 };
+    // Draw the red square.
+    SDL_Rect red_rect = { posX, posY, RED_SQUARE_WIDTH, RED_SQUARE_HEIGHT };
+    // Draw the blue square.
+    SDL_Rect blue_rect = { bPosX, bPosY, BLUE_SQUARE_WIDTH, BLUE_SQUARE_HEIGHT };
+
+    // Create reset text surface.
+    SDL_Color black_color = { 0, 0, 0, 255 };
+    SDL_Surface *reset_text_surface = TTF_RenderText_Solid(font, "Reset", black_color);
+    if (!reset_text_surface) {
+        printf("Error creating reset text surface %s\n", TTF_GetError());
+        TTF_CloseFont(font);
+        SDL_Quit();
+        return EXIT_FAILURE;
+    }
+    SDL_Texture *reset_text_texture = SDL_CreateTextureFromSurface(renderer, reset_text_surface);
+    SDL_FreeSurface(reset_text_surface);
+    SDL_Rect reset_text_rect = { reset_button.x + 10, reset_button.y + 10, 80, 30 };
 
     // Game loop.
     while (is_running) {
@@ -114,6 +136,30 @@ int main(void) {
                 }
             }
 
+            // Handle mouse click.
+            if (event.type == SDL_MOUSEBUTTONDOWN) {
+                int mouseX = event.button.x;
+                int mouseY = event.button.y;
+
+                // Check is the click is insede of button.
+                if (show_reset_button &&
+                    mouseX >= reset_button.x &&
+                    mouseX <= reset_button.x + reset_button.w &&
+                    mouseY >= reset_button.y &&
+                    mouseY <= reset_button.y + reset_button.h) {
+                    posX = 100;
+                    posY = 100;
+                    red_rect.x = posX;
+                    red_rect.y = posY;
+                    show_reset_button = false;
+                    printf("Pressed reset button\n");
+                }
+            }
+
+            // Update red square position.
+            red_rect.x = posX;
+            red_rect.y = posY;
+
             // Handle square go out of screen.
             if (posX < 0) posX = 0;
             if (posY < 0) posY = 0;
@@ -125,23 +171,24 @@ int main(void) {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
-        // Draw the blue square.
-        SDL_Rect blue_rect = { bPosX, bPosY, BLUE_SQUARE_WIDTH, BLUE_SQUARE_HEIGHT };
+        // Render blue square.
         SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
         SDL_RenderFillRect(renderer, &blue_rect);
 
-        // Draw the red square.
-        SDL_Rect red_rect = { posX, posY, RED_SQUARE_WIDTH, RED_SQUARE_HEIGHT };
-
         if (check_collision(red_rect, blue_rect)) {
+            show_reset_button = true;
             SDL_RenderCopy(renderer, text_texture, NULL, &text_rect);
-            SDL_RenderPresent(renderer);
-            SDL_Delay(3000);
-            is_running = false;
+        }
+
+        if (show_reset_button) {
+            // Colorize white reset button.
+            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+            SDL_RenderFillRect(renderer, &reset_button);
+            SDL_RenderCopy(renderer, reset_text_texture, NULL, &reset_text_rect);
         } else {
             // Change to green of red_rect.
-            SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-            // Show on screen the red_rect.
+            // Render on screen the red_rect.
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
             SDL_RenderFillRect(renderer, &red_rect);
         }
 
