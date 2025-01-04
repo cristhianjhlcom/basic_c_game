@@ -4,6 +4,17 @@
 
 ### 03-01-2025
 
+- 23:35:16. Add feedback text on screen.
+    - When main square collide with obstacle (second square) the program will show a "Game Over" text on screen, then after 3 seconds will close the app.
+    - Had to install the ttf library `sudo apt install libsdl2-ttf-dev` so we can import the necesary modules.
+        - `#include <SDL2/SDL_ttf.h>`
+    - Had to create a surface and texture for the feedback text.
+        - The text should render on squares collition.
+        - Set delay of 3 seconds.
+        - After the 3 second the app should close.
+    - Had to add a `fonts` folder and use `arcade_classic.ttf` custom font.
+    - Had to link the `ttf_LSD2` header so we can compile the app.
+        - `gcc -o output main.c -lSDL2 -lSDL2_ttf`
 - 21:36:42. Add collision.
     - Create a function to check the collision between two squares.
     ```c

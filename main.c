@@ -1,12 +1,16 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_keycode.h>
+#include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_video.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 #define RED_SQUARE_WIDTH 50
@@ -49,6 +53,19 @@ int main(void) {
         return EXIT_FAILURE;
     }
 
+    // SDL_ttf Initialization.
+    if (TTF_Init() == -1) {
+        printf("Error ttf initialization SDL_ttf %s\n", TTF_GetError());
+        SDL_Quit();
+        return EXIT_FAILURE;
+    }
+    // Load any font.
+    TTF_Font *font = TTF_OpenFont("fonts/arcade_classic.ttf", 24);
+    if (!font) {
+        printf("Error loading font %s\n", TTF_GetError());
+        SDL_Quit();
+        return EXIT_FAILURE;
+    }
     // Variables for red square.
     int posX, posY = 100;
     // Variables for blue square.
@@ -58,6 +75,19 @@ int main(void) {
     // Conditional for run the app and event variables.
     bool is_running = true;
     SDL_Event event;
+
+    // Create surface for text and texture.
+    SDL_Color color = { 255, 255, 255, 255 };
+    SDL_Surface *text_surface = TTF_RenderText_Solid(font, "Game Over", color);
+    if (!text_surface) {
+        printf("Error creating text surface %s\n", TTF_GetError());
+        TTF_CloseFont(font);
+        SDL_Quit();
+        return EXIT_FAILURE;
+    }
+    SDL_Texture *text_texture = SDL_CreateTextureFromSurface(renderer, text_surface);
+    SDL_FreeSurface(text_surface);
+    SDL_Rect text_rect = { 300, 250, 200, 50 };
 
     // Game loop.
     while (is_running) {
@@ -104,21 +134,27 @@ int main(void) {
         SDL_Rect red_rect = { posX, posY, RED_SQUARE_WIDTH, RED_SQUARE_HEIGHT };
 
         if (check_collision(red_rect, blue_rect)) {
-            // Change to red of red_rect.
-            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+            SDL_RenderCopy(renderer, text_texture, NULL, &text_rect);
+            SDL_RenderPresent(renderer);
+            SDL_Delay(3000);
+            is_running = false;
         } else {
             // Change to green of red_rect.
             SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+            // Show on screen the red_rect.
+            SDL_RenderFillRect(renderer, &red_rect);
         }
-        // Show on screen the red_rect.
-        SDL_RenderFillRect(renderer, &red_rect);
 
         // Show change on screen.
         SDL_RenderPresent(renderer);
     }
+    // Clean resources.
+    SDL_DestroyTexture(text_texture);
+    TTF_CloseFont(font);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+    TTF_Quit();
     return EXIT_SUCCESS;
 }
 
